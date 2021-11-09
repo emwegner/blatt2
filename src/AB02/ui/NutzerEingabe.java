@@ -6,14 +6,10 @@ import AB02.util.EinUndAusgabe;
 import java.util.Scanner;
 
 public class NutzerEingabe {
-    Scanner scanner = new Scanner(System.in);
-    public EinUndAusgabe io;
+    private Scanner scanner = new Scanner(System.in);
+    private EinUndAusgabe io;
 
     public NutzerEingabe(EinUndAusgabe ea) {
-    }
-
-    public NutzerEingabe() {
-
     }
 
 
@@ -33,7 +29,7 @@ public class NutzerEingabe {
 
     public int wahrscheinlichkeitDerBesiedlung() {
         int wahrscheinlichkeit = 0;
-        while (wahrscheinlichkeit > 100 && wahrscheinlichkeit < 1) {
+        while (wahrscheinlichkeit > 100 || wahrscheinlichkeit < 1) {
             System.out.print("Geben sie einen Wert zwischen 1 und 100 ein : ");
             wahrscheinlichkeit = scanner.nextInt();
         }
@@ -42,7 +38,7 @@ public class NutzerEingabe {
 
     public int anzahlDerSimulationsschritte() {
         int anzahl = 0;
-        while (anzahl > 20 && anzahl < 1) {
+        while (anzahl > 20 || anzahl < 1) {
             System.out.print("Geben sie die Anzahl der Simulationsschritte ein (Abbruch mit negativer Zahl) : ");
             anzahl = scanner.nextInt();
         }
