@@ -25,83 +25,34 @@ public class Simulator implements Simulation{
     }
 
     public void berechneFolgeGeneration(int berechnungsschritte) {
-        for (int step = 0; step < berechnungsschritte; step++) {
-            boolean[][] newFeld = new boolean[spielfeld.length][spielfeld.length];
-            for (int i = 0; i < spielfeld.length; i++) {
-                for (int j = 0; j < spielfeld[i].length; j++) {
-                    int anzahlNachbarn = 0;
-                    if (i == 0) {
-                        if (j == 0) {
-                            if (spielfeld[i][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j] == true) anzahlNachbarn++;
-                        } else if (j == spielfeld[i].length) {
-                            if (spielfeld[i][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j] == true) anzahlNachbarn++;
-                        } else {
-                            if (spielfeld[i][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i + 1][j] == true) anzahlNachbarn++;
-                        }
-                    }
-                    if (i == spielfeld.length) {
-                        if (j == 0) {
-                            if (spielfeld[i - 1][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i - 1][j] == true) anzahlNachbarn++;
-                            if (spielfeld[i][j + 1] == true) anzahlNachbarn++;
-                        } else if (j == spielfeld[i].length) {
-                            if (spielfeld[i][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i - 1][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i - 1][j] == true) anzahlNachbarn++;
-                        } else {
-                            if (spielfeld[i][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i - 1][j + 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i - 1][j - 1] == true) anzahlNachbarn++;
-                            if (spielfeld[i - 1][j] == true) anzahlNachbarn++;
-                        }
-                    } else if (i != 0 && i != spielfeld.length && j == 0) {
-                        if (spielfeld[i][j + 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j + 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j + 1] == true) anzahlNachbarn++;
-                    } else if (i != 0 && i != spielfeld.length && j == spielfeld[i].length) {
-                        if (spielfeld[i][j - 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j - 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j - 1] == true) anzahlNachbarn++;
-                    } else if (i != 0 && j != 0) {
-                        if (spielfeld[i][j - 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i][j + 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j + 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j - 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i + 1][j] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j + 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j - 1] == true) anzahlNachbarn++;
-                        if (spielfeld[i - 1][j] == true) anzahlNachbarn++;
+        boolean[][] newFeld = new boolean[spielfeld.length][spielfeld.length];
+        for (int i = 0; i < spielfeld.length; i++) {
+            for (int j = 0; j < spielfeld[i].length; j++) {
+                int anzahlNachbarn = zaehlen(i,j);
 
-                    }
-
-                    if (spielfeld[i][j] == true && anzahlNachbarn == 2 || anzahlNachbarn == 3)
-                        newFeld[i][j] = true;
-                    else if (spielfeld[i][j] == false && anzahlNachbarn == 3) newFeld[i][j] = true;
-                    else newFeld[i][j] = false;
-                }
+                if (spielfeld[i][j] == true && anzahlNachbarn == 2 || anzahlNachbarn == 3)
+                    newFeld[i][j] = true;
+                else if (spielfeld[i][j] == false && anzahlNachbarn == 3) newFeld[i][j] = true;
+                else newFeld[i][j] = false;
             }
-            if (spielfeld == newFeld) return;
-            else spielfeld = newFeld;
-            Steuerung steuerung = new Steuerung();
-            steuerung.aktualisiere(spielfeld);
-            //die  Geschwindigkeit  der  Darstellung
-            // kann  bspw.  über Thread.sleep(150) gesteuert werden
-
         }
     }
+
+        public int zaehlen(int currentI, int currentJ) {
+            int count = 0;
+            for(int i = currentI - 1; i <= currentI + 1; i++) {
+                if (i >= 0 && i < spielfeld.length) // fixed here
+                    for(int j = currentJ - 1; j <= currentJ + 1; j++)
+                        if (j >= 0 && j < spielfeld[i].length) // fixed here
+                            if (i != currentI || j != currentJ)
+                                if (spielfeld[i][j] == true)
+                                    count++;
+            }
+
+            return count;
+        }
+
+
 
 
 
