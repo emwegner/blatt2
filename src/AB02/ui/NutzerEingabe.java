@@ -9,16 +9,25 @@ public class NutzerEingabe {
     Scanner scanner = new Scanner(System.in);
     public EinUndAusgabe io;
 
-    public NutzerEingabe() {
+    public NutzerEingabe(EinUndAusgabe ea) {
     }
 
+    public NutzerEingabe() {
+
+    }
+
+
     public void NutzerEingabe(EinUndAusgabe io) {
+        this.io = io;
     }
 
     public int anzahlZellenDesSpielfeldes() {
-        System.out.print("Geben sie die Anzahl der Zellen des Spielfeldes ein : ");
-        int zellen = scanner.nextInt();
-        //darf nicht kleiner als iwelche konstanten sein
+        int zellen = 0;
+        while (zellen < 5) {
+            System.out.print("Geben sie die Anzahl der Zellen des Spielfeldes ein (min.5) : ");
+            zellen = scanner.nextInt();
+        }
+
         return zellen;
     }
 
@@ -34,10 +43,8 @@ public class NutzerEingabe {
     public int anzahlDerSimulationsschritte() {
         int anzahl = 0;
         while (anzahl > 20 && anzahl < 1) {
-            //darf nicht größer als iwelche konstanten sein
             System.out.print("Geben sie die Anzahl der Simulationsschritte ein (Abbruch mit negativer Zahl) : ");
             anzahl = scanner.nextInt();
-            if(anzahl < 0) {} //dann abbruch
         }
         return anzahl;
     }

@@ -11,7 +11,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Willkommen zu dem Spiel des Lebens von Convay!");
         Steuerung steuerung = new Steuerung();
+        steuerung.initialisierung();
         steuerung.StartDesSpiels();
+
 
     }
 }
