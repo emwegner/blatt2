@@ -23,8 +23,8 @@ public class Simulator implements Simulation{
     }
 
     public void berechneFolgeGeneration(int berechnungsschritte){
-        boolean[][] newFeld = new boolean[spielfeld.length][spielfeld.length];
         for (int folgen = 0; folgen < berechnungsschritte; folgen++) {
+            boolean[][] newFeld = new boolean[spielfeld.length][spielfeld.length];
             for (int i = 0; i < spielfeld.length; i++) {
                 for (int j = 0; j < spielfeld[i].length; j++) {
                     int anzahlNachbarn = zaehlen(i, j);
@@ -38,9 +38,9 @@ public class Simulator implements Simulation{
             else spielfeld = newFeld;
             if (beiAenderung != null) beiAenderung.aktualisiere(spielfeld);
             try {
-                Thread.sleep(2000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
-                System.out.println("Fehler bei Thread.sleep");
+                System.err.println("Fehler bei Thread.sleep");
             }
         }
     }

@@ -13,7 +13,6 @@ public class SpielfeldDarstellung {
     }
 
     public void spielfeldDarstellen(boolean[][] spielfeld) {
-        int seitenlaenge = wert / spielfeld.length;
         for (int i = 0; i < spielfeld.length; i++) {
             for (int j = 0; j < spielfeld[i].length; j++) {
                 Quadrat q = new Quadrat(wert * i + margin, j * wert + margin, wert);

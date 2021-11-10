@@ -38,10 +38,9 @@ public class NutzerEingabe {
 
     public int anzahlDerSimulationsschritte() {
         int anzahl = 0;
-        while (anzahl > 20 || anzahl < 1) {
             System.out.print("Geben sie die Anzahl der Simulationsschritte ein (Abbruch mit negativer Zahl) : ");
             anzahl = scanner.nextInt();
-        }
+
         return anzahl;
     }
 }

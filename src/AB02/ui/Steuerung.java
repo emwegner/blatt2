@@ -36,6 +36,7 @@ public class Steuerung implements BeiAenderung {
 
     }
     public void aktualisiere(boolean[][] neueGeneration) {
+      spielfeldDarstellung.abwischen();
       spielfeldDarstellung.spielfeldDarstellen(neueGeneration);
     }
 }
